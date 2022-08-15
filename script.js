@@ -165,7 +165,7 @@ function getCookie() {
     ? decodeURIComponent(matches[1])
         .split(",")
         .map((id) => parseInt(id))
-    : [1, 4, 6];
+    : [];
 }
 
 /* Сохранение списка в куках */
