@@ -132,6 +132,10 @@ function showBoss(id) {
   </div>
   `;
   selectMenuItem(id);
+  checkIsCompleted(id);
+  document
+    .querySelector("h1")
+    .addEventListener("click", () => toggleCompletedBoss(id));
 }
 function selectMenuItem(id) {
   bosses.forEach((boss) => {
@@ -148,5 +152,48 @@ function getMenuItem(id) {
   return document.getElementById(`menu_boss_${id}`);
 }
 
+function getCookie() {
+  let matches = document.cookie.match(new RegExp("(?:^|; )completed=([^;]*)"));
+  return matches
+    ? decodeURIComponent(matches[1])
+        .split(",")
+        .map((id) => parseInt(id))
+    : [1, 4, 6];
+}
+function setCookie() {
+  document.cookie = "completed=" + encodeURIComponent(completed);
+}
+
+function checkIsCompleted(id) {
+  if (completed.includes(id)) {
+    document.querySelector(".content__title").classList.add("completed");
+    document.querySelector(".content__image").classList.add("completed");
+    document.querySelector(".content__description").classList.add("completed");
+    document.querySelector(".content__subtitle").classList.add("completed");
+    getMenuItem(id).classList.add("completed");
+  } else {
+    document.querySelector(".content__title").classList.remove("completed");
+    document.querySelector(".content__image").classList.remove("completed");
+    document
+      .querySelector(".content__description")
+      .classList.remove("completed");
+    document.querySelector(".content__subtitle").classList.remove("completed");
+    getMenuItem(id).classList.remove("completed");
+  }
+}
+
+function toggleCompletedBoss(id) {
+  completed.includes(id)
+    ? completed.splice(completed.indexOf(id), 1)
+    : completed.push(id);
+  setCookie();
+  checkIsCompleted(id);
+}
+
 createMenu();
+
+const completed = getCookie();
+console.log(completed);
+completed.forEach((id) => getMenuItem(id).classList.add("completed"));
+
 showBoss(1);
