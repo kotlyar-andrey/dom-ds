@@ -124,8 +124,8 @@ function showBoss(id) {
   <div class="content__video">
     <h3 class="content__subtitle">Видео</h3>
     <iframe
-      width="560"
-      height="315"
+      width="100%"
+      height="100%"
       src="https://www.youtube.com/embed/${boss.video}"
       title="YouTube video player"
       frameborder="0"
