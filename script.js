@@ -1,3 +1,4 @@
+/* Данные о боссах */
 const bosses = [
   {
     id: 1,
@@ -97,6 +98,7 @@ const bosses = [
   },
 ];
 
+/* Создание меню с добавлением прослушивания события нажатия */
 function createMenu() {
   const menu = document.querySelector(".menu");
 
@@ -111,6 +113,7 @@ function createMenu() {
   });
 }
 
+/* Показ инфорации о выбранном боссе */
 function showBoss(id) {
   const target = document.querySelector(".content");
   const boss = bosses.filter((obj) => obj.id === id)[0];
@@ -131,12 +134,14 @@ function showBoss(id) {
     ></iframe>
   </div>
   `;
-  selectMenuItem(id);
-  checkIsCompleted(id);
+  selectMenuItem(id); // Изменение активного элемента меню
+  checkIsCompleted(id); // Если босс проейден, его нужно подсветить
   document
     .querySelector("h1")
-    .addEventListener("click", () => toggleCompletedBoss(id));
+    .addEventListener("click", () => toggleCompletedBoss(id)); // Добавление обработчика нажатия на имя босса
 }
+
+/* Изменение активного элемента меню */
 function selectMenuItem(id) {
   bosses.forEach((boss) => {
     const menuItem = getMenuItem(boss.id);
@@ -148,10 +153,12 @@ function selectMenuItem(id) {
   });
 }
 
+/* Получение элемента меню по id */
 function getMenuItem(id) {
   return document.getElementById(`menu_boss_${id}`);
 }
 
+/* Получение из куков списка пройденных боссов */
 function getCookie() {
   let matches = document.cookie.match(new RegExp("(?:^|; )completed=([^;]*)"));
   return matches
@@ -160,10 +167,13 @@ function getCookie() {
         .map((id) => parseInt(id))
     : [1, 4, 6];
 }
+
+/* Сохранение списка в куках */
 function setCookie() {
   document.cookie = "completed=" + encodeURIComponent(completed);
 }
 
+/* Проверка, пройден ли босс. Если да, изменение цвета его отображения */
 function checkIsCompleted(id) {
   if (completed.includes(id)) {
     document.querySelector(".content__title").classList.add("completed");
@@ -182,18 +192,49 @@ function checkIsCompleted(id) {
   }
 }
 
+/* Обработчик нажатия на имя босса для его добавления или удаления из пройденных */
 function toggleCompletedBoss(id) {
-  completed.includes(id)
-    ? completed.splice(completed.indexOf(id), 1)
-    : completed.push(id);
+  if (completed.includes(id)) {
+    completed.splice(completed.indexOf(id), 1);
+    showModal();
+  } else {
+    completed.push(id);
+    showModal(id);
+  }
   setCookie();
-  checkIsCompleted(id);
+  setTimeout(() => {
+    checkIsCompleted(id);
+  }, 3000);
+}
+
+/* Показывает надпись во весь экран */
+function showModal(bossId = null) {
+  const wrapper = document.querySelector(".wrapper");
+  const modal = document.createElement("div");
+  if (bossId) {
+    const boss = bosses.filter((obj) => obj.id === bossId)[0];
+    modal.innerHTML = `${boss.name} повержен`;
+    modal.classList.add("modal", "boss_defeted");
+  } else {
+    modal.innerHTML = `Вы погибли`;
+    modal.classList.add("modal", "you_died");
+  }
+  wrapper.insertAdjacentElement("beforeend", modal);
+  setTimeout(() => {
+    modal.classList.add("show");
+  }, 0);
+  setTimeout(() => {
+    modal.classList.remove("show");
+    modal.classList.add("hide");
+  }, 3000);
+  setTimeout(() => {
+    modal.remove();
+  }, 5000);
 }
 
 createMenu();
 
 const completed = getCookie();
-console.log(completed);
 completed.forEach((id) => getMenuItem(id).classList.add("completed"));
 
 showBoss(1);
