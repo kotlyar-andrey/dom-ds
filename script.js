@@ -118,7 +118,7 @@ function createMenu() {
 /* Показ инфорации о выбранном боссе */
 function showBoss(id) {
   const content = document.querySelector(".content");
-  const boss = bosses.filter((obj) => obj.id === id)[0];
+  const boss = bosses.find((obj) => obj.id === id);
   content.innerHTML = `
   <h1 class="content__title">${boss.name}</h1>
   <img class="content__image" src="images/${boss.image}" alt="${boss.name}" />
@@ -212,7 +212,7 @@ function showModal(bossId = null) {
   const wrapper = document.querySelector(".wrapper");
   const modal = document.createElement("div");
   if (bossId) {
-    const boss = bosses.filter((obj) => obj.id === bossId)[0];
+    const boss = bosses.find((obj) => obj.id === bossId);
     modal.innerHTML = `${boss.name} повержен`;
     modal.classList.add("modal", "boss_defeted");
   } else {
