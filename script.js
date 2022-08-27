@@ -105,12 +105,12 @@ function createMenu() {
   menu.innerHTML = bosses
     .map(
       (boss) =>
-        `<a href="#" class="menu__item" id="menu_boss_${boss.id}" data_boss_id="${boss.id}">${boss.name}</a>`
+        `<a href="#" class="menu__item" id="menu_boss_${boss.id}" data-bossid="${boss.id}">${boss.name}</a>`
     )
     .join("");
   menu.addEventListener("click", (e) => {
-    if (e.target && e.target.nodeName === "A") {
-      showBoss(parseInt(e.target.getAttribute("data_boss_id")));
+    if (e.target.dataset.bossid != undefined) {
+      showBoss(parseInt(e.target.dataset.bossid));
     }
   });
 }
