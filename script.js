@@ -145,14 +145,11 @@ function showBoss(id) {
 
 /* Изменение активного элемента меню */
 function selectMenuItem(id) {
-  bosses.forEach((boss) => {
-    const menuItem = getMenuItem(boss.id);
-    if (id === boss.id) {
-      menuItem.classList.add("active");
-    } else {
-      menuItem.classList.remove("active");
-    }
-  });
+  const activeElement = document.querySelector(".menu__item.active");
+  if (activeElement) {
+    activeElement.classList.remove("active");
+  }
+  document.querySelector(`[data-bossid="${id}"]`).classList.add("active");
 }
 
 /* Получение элемента меню по id */
