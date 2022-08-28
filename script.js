@@ -105,7 +105,9 @@ function createMenu() {
   menu.innerHTML = bosses
     .map(
       (boss) =>
-        `<a href="#" class="menu__item" id="menu_boss_${boss.id}" data-bossid="${boss.id}">${boss.name}</a>`
+        `<a href="#" class="menu__item${
+          completed.includes(boss.id) ? " completed" : ""
+        }" id="menu_boss_${boss.id}" data-bossid="${boss.id}">${boss.name}</a>`
     )
     .join("");
   menu.addEventListener("click", (e) => {
@@ -229,9 +231,7 @@ function showModal(bossId = null) {
   }, 5000);
 }
 
-createMenu();
-
 const completed = getCookie();
-completed.forEach((id) => getMenuItem(id).classList.add("completed"));
+createMenu();
 
 showBoss(1);
