@@ -8,8 +8,12 @@ body {
   background-color: #212121;
 }
 @font-face {
-  font-family: darksouls;
-  src: url(fonts/CormorantUnicase-Regular.ttf);
+  font-family: "Cormorant Unicase";
+  src: url("fonts/CormorantUnicase-Regular.woff2") format("woff2"),
+    url("fonts/CormorantUnicase-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 .wrapper {
@@ -42,7 +46,7 @@ body {
 }
 
 .header__logo {
-  font-family: darksouls;
+  font-family: "Cormorant Unicase";
   font-size: 42px;
   color: #f3f3f3;
   padding: 4px 20px;
@@ -69,7 +73,7 @@ body {
 
 .menu__item {
   font-size: 36px;
-  font-family: darksouls;
+  font-family: "Cormorant Unicase";
   text-decoration: none;
   font-weight: bold;
   color: #c2c2c2;
@@ -94,7 +98,7 @@ body {
 }
 .content__title {
   font-size: 48px;
-  font-family: darksouls;
+  font-family: "Cormorant Unicase";
   margin-bottom: 20px;
   text-align: center;
   color: #c2c2c2;
@@ -103,7 +107,7 @@ body {
 }
 .content__subtitle {
   font-size: 24px;
-  font-family: darksouls;
+  font-family: "Cormorant Unicase";
   margin-bottom: 10px;
   text-align: center;
   color: #c2c2c2;
@@ -168,7 +172,7 @@ body {
   color: #c2c2c2;
   width: 200px;
   font-size: 14px;
-  font-family: darksouls;
+  font-family: "Cormorant Unicase";
 }
 
 .modal {
@@ -182,7 +186,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: darksouls;
+  font-family: "Cormorant Unicase";
   padding: 10px;
   font-size: 96px;
   letter-spacing: 14px;
@@ -359,7 +363,7 @@ body {
     padding: 4px;
     text-align: center;
     font-size: 14px;
-    font-family: darksouls;
+    font-family: "Cormorant Unicase";
   }
   .modal {
     font-size: 36px;
